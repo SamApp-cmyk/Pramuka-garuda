@@ -3,120 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Pramuka Garuda</title>
+    <title>Panel Admin - Pramuka Indonesia</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
-        body { background: #021B14; color: #E5E7EB; min-height: 100vh; padding: 16px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(245,158,11,0.3); padding-bottom: 12px; }
-        .header h1 { color: #FCD34D; font-size: 16px; font-weight: 800; }
-        .btn-home { background: rgba(255,255,255,0.1); color: #FFF; border: 1px solid rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none; }
-
-        .panel-box { background: #0A4534; border: 1px solid rgba(245,158,11,0.3); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
-        .panel-box h2 { font-size: 14px; color: #FCD34D; margin-bottom: 10px; font-weight: 800; }
-
-        label { font-size: 10px; font-weight: 700; color: #FCD34D; display: block; margin-bottom: 3px; }
-        input, textarea, select { width: 100%; padding: 8px; background: #042E23; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; margin-bottom: 10px; color: #FFF; font-size: 11px; outline: none; }
-        .btn-submit { background: #D97706; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; }
-        
-        .grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
-        .card { background: #042E23; border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 10px; position: relative; }
-        .card h3 { color: #FBBF24; font-size: 11px; font-weight: 700; margin-bottom: 2px; }
-        .card p { color: #9CA3AF; font-size: 10px; line-height: 1.3; margin-bottom: 6px; }
-        .badge { display: inline-block; padding: 2px 5px; font-size: 8px; font-weight: 800; border-radius: 4px; margin-bottom: 4px; text-transform: uppercase; background: #FEF08A; color: #854D0E; }
-        .btn-delete { background: #991B1B; color: #FFF; border: none; padding: 3px 8px; border-radius: 5px; font-size: 9px; font-weight: 700; cursor: pointer; }
+        body { background-color: #042E23; color: #E5E7EB; min-height: 100vh; padding: 20px 10px 40px; }
+        .container { max-width: 600px; margin: 0 auto; background: #0A4534; border: 2px solid #F59E0B; border-radius: 14px; padding: 20px; }
+        h1 { color: #FCD34D; font-size: 18px; font-weight: 800; margin-bottom: 15px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 12px; color: #FCD34D; font-weight: 700; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 10px; background: #042E23; border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; color: #FFF; font-size: 12px; }
+        textarea { resize: vertical; height: 100px; }
+        .btn-save { background: #D97706; color: #FFF; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 5px; }
+        .btn-back { display: block; text-align: center; margin-top: 15px; color: #9CA3AF; text-decoration: none; font-size: 11px; }
+        .item-list { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .item-card { background: #042E23; padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(245,158,11,0.2); }
+        .item-info h4 { font-size: 12px; color: #FCD34D; }
+        .item-info p { font-size: 10px; color: #9CA3AF; text-transform: uppercase; }
+        .btn-del { background: #DC2626; color: #FFF; border: none; padding: 6px 10px; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="header">
-            <h1>⚙️ Admin Dashboard Konten</h1>
-            <a href="index.html" class="btn-home">🌐 Buka Aplikasi Utama</a>
+        <h1>🔐 Panel Admin Kelola Konten</h1>
+        
+        <div class="form-group">
+            <label>Judul Materi / Menu:</label>
+            <input type="text" id="inputJudul" placeholder="Contoh: Pengenalan Tali Menali">
         </div>
 
-        <!-- FORM TAMBAH KONTEN -->
-        <div class="panel-box">
-            <h2>➕ Tambah Konten Berdasarkan Halaman</h2>
-            <form onsubmit="tambahData(event)">
-                <label>Pilih Target Halaman (Kategori)</label>
-                <select id="adminKategori">
-                    <option value="beranda">🏠 Beranda Utama</option>
-                    <option value="satuan">⚜️ Tingkatan Satuan</option>
-                    <option value="kegiatan">🏕️ Kegiatan Kepramukaan</option>
-                    <option value="materi">📚 Modul Materi</option>
-                </select>
-
-                <label>Judul / Nama Item</label>
-                <input type="text" id="adminJudul" required placeholder="Contoh: Pengumuman Penting / Materi Baru...">
-
-                <label>Deskripsi / Penjelasan Lengkap</label>
-                <textarea id="adminDeskripsi" rows="3" required placeholder="Tuliskan isi atau penjelasan di sini..."></textarea>
-
-                <button type="submit" class="btn-submit">💾 Simpan ke Aplikasi</button>
-            </form>
+        <div class="form-group">
+            <label>Pilih Kategori Halaman:</label>
+            <select id="inputKategori">
+                <option value="beranda">🏠 Beranda Utama</option>
+                <option value="satuan">⚜️ Tingkatan Satuan</option>
+                <option value="kegiatan">🏕️ Kegiatan Kepramukaan</option>
+                <option value="materi">📚 Modul Materi</option>
+            </select>
         </div>
 
-        <!-- DAFTAR KONTEN TAMBAHAN -->
-        <div class="panel-box">
-            <h2>📋 Kelola Konten Tambahan</h2>
-            <div id="adminDaftarList" class="grid"></div>
+        <div class="form-group">
+            <label>Deskripsi / Isi Ringkas:</label>
+            <textarea id="inputDeskripsi" placeholder="Tulis ringkasan materi di sini..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>URL Link Dokumen (Google Drive / Lainnya):</label>
+            <input type="text" id="inputGambar" placeholder="Contoh: https://drive.google.com/file/d/.../preview">
+            <small style="color: #10B981; font-size: 10px; display: block; margin-top: 4px;">*Pastikan link Google Drive berakhiran /preview dan akses sudah diset "Siapa saja yang memiliki link".</small>
+        </div>
+
+        <button class="btn-save" onclick="simpanData()">Simpan & Publikasikan</button>
+        <a href="index.html" class="btn-back">&larr; Kembali ke Aplikasi Utama</a>
+
+        <div class="item-list">
+            <label style="margin-bottom: 10px;">Daftar Konten Tersimpan:</label>
+            <div id="listKonten"></div>
         </div>
     </div>
 
     <script>
-        window.onload = function() {
-            tampilDaftar();
-        };
+        function simpanData() {
+            var judul = document.getElementById('inputJudul').value.trim();
+            var kategori = document.getElementById('inputKategori').value;
+            var deskripsi = document.getElementById('inputDeskripsi').value.trim();
+            var gambar = document.getElementById('inputGambar').value.trim();
 
-        function tambahData(e) {
-            e.preventDefault();
-            var kategori = document.getElementById('adminKategori').value;
-            var judul = document.getElementById('adminJudul').value;
-            var deskripsi = document.getElementById('adminDeskripsi').value;
-
-            var itemBaru = { kategori: kategori, judul: judul, deskripsi: deskripsi };
-            
-            var data = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
-            data.push(itemBaru);
-            localStorage.setItem('pramuka_custom_data', JSON.stringify(data));
-
-            alert('Sukses! Konten baru berhasil disimpan dan aktif di halaman terkait.');
-            e.target.reset();
-            tampilDaftar();
-        }
-
-        function tampilDaftar() {
-            var container = document.getElementById('adminDaftarList');
-            if(!container) return;
-            container.innerHTML = '';
-            var data = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
-
-            if (data.length === 0) {
-                container.innerHTML = '<p style="font-size:10px; color:#9CA3AF; text-align:center; padding:8px;">Belum ada konten tambahan.</p>';
+            if(!judul || !deskripsi) {
+                alert('Judul dan Deskripsi tidak boleh kosong!');
                 return;
             }
 
-            data.forEach(function(item, index) {
-                var card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <span class="badge">${item.kategori.toUpperCase()}</span>
-                    <h3>${item.judul}</h3>
-                    <p>${item.deskripsi}</p>
-                    <button class="btn-delete" onclick="hapusData(${index})">🗑️ Hapus</button>
+            var itemBaru = {
+                judul: judul,
+                kategori: kategori,
+                deskripsi: deskripsi,
+                gambar: gambar
+            };
+
+            var dataList = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
+            dataList.push(itemBaru);
+            localStorage.setItem('pramuka_custom_data', JSON.stringify(dataList));
+
+            alert('Konten berhasil disimpan!');
+            document.getElementById('inputJudul').value = '';
+            document.getElementById('inputDeskripsi').value = '';
+            document.getElementById('inputGambar').value = '';
+            tampilkanDaftar();
+        }
+
+        function tampilkanDaftar() {
+            var listContainer = document.getElementById('listKonten');
+            listContainer.innerHTML = '';
+            var dataList = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
+
+            if(dataList.length === 0) {
+                listContainer.innerHTML = '<p style="font-size:11px; color:#9CA3AF; text-align:center;">Belum ada konten tersimpan.</p>';
+                return;
+            }
+
+            dataList.forEach(function(item, index) {
+                var div = document.createElement('div');
+                div.className = 'item-card';
+                div.innerHTML = `
+                    <div class="item-info">
+                        <h4>${item.judul}</h4>
+                        <p>${item.kategori}</p>
+                    </div>
+                    <button class="btn-del" onclick="hapusItem(${index})">Hapus</button>
                 `;
-                container.appendChild(card);
+                listContainer.appendChild(div);
             });
         }
 
-        function hapusData(index) {
-            var data = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
-            data.splice(index, 1);
-            localStorage.setItem('pramuka_custom_data', JSON.stringify(data));
-            tampilDaftar();
+        function hapusItem(index) {
+            if(confirm('Yakin ingin menghapus konten ini?')) {
+                var dataList = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
+                dataList.splice(index, 1);
+                localStorage.setItem('pramuka_custom_data', JSON.stringify(dataList));
+                tampilkanDaftar();
+            }
         }
+
+        window.onload = function() {
+            tampilkanDaftar();
+        };
     </script>
 </body>
 </html>
