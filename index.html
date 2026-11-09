@@ -32,31 +32,36 @@
         main { padding: 10px 16px 30px; flex: 1; max-width: 800px; margin: 0 auto; width: 100%; }
         .tab-content { display: none; }
         .content-box { background: #0A4534; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px; color: #FFF; margin-bottom: 14px; }
-        .content-box h2 { font-size: 15px; color: #FCD34D; margin-bottom: 6px; font-weight: 800; }
-        .content-box p { font-size: 11px; color: #D1D5DB; line-height: 1.5; }
+        .content-box h2 { font-size: 15px; color: #FCD34D; margin-bottom: 10px; font-weight: 800; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px; }
-        .card { background: #042E23; border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; padding: 12px; text-align: left; }
-        .card h3 { color: #FBBF24; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
-        .card p { color: #9CA3AF; font-size: 10px; line-height: 1.3; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+        
+        /* Kartu Tampil Ringkas (Hanya Judul & Tombol Aksi) */
+        .card { background: #042E23; border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: 0.2s; }
+        .card:hover { border-color: #F59E0B; background: #06382b; }
+        .card h3 { color: #FBBF24; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+        
+        .badge { display: inline-block; padding: 2px 6px; font-size: 8px; font-weight: 800; border-radius: 4px; margin-bottom: 6px; text-transform: uppercase; background: #FEF08A; color: #854D0E; }
+        .btn-baca { background: rgba(245,158,11,0.15); border: 1px solid #F59E0B; color: #FCD34D; font-weight: 700; font-size: 10px; padding: 6px 10px; border-radius: 6px; text-align: center; margin-top: 8px; cursor: pointer; }
 
-        .badge { display: inline-block; padding: 2px 6px; font-size: 8px; font-weight: 800; border-radius: 4px; margin-bottom: 4px; text-transform: uppercase; background: #FEF08A; color: #854D0E; }
-        .btn-link { background: none; border: none; color: #FBBF24; font-weight: 700; font-size: 10px; margin-top: 8px; cursor: pointer; padding: 0; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: 15px; }
-        .modal-box { background: #0A4534; border: 2px solid #F59E0B; border-radius: 14px; padding: 16px; max-width: 360px; width: 100%; color: #FFF; }
-        .modal-box h3 { color: #FCD34D; font-size: 14px; font-weight: 800; margin-bottom: 6px; }
-        .modal-box p { font-size: 11px; color: #D1D5DB; line-height: 1.4; margin-bottom: 12px; }
-        .btn-close { background: #D97706; color: #FFF; border: none; width: 100%; padding: 8px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        /* Modal / Halaman Detail Muncul Saat Judul Diklik */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 15px; }
+        .modal-box { background: #0A4534; border: 2px solid #F59E0B; border-radius: 14px; padding: 20px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; color: #FFF; position: relative; }
+        .modal-box h3 { color: #FCD34D; font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+        .modal-box p { font-size: 12px; color: #E5E7EB; line-height: 1.6; white-space: pre-line; margin-bottom: 15px; }
+        .btn-close { background: #D97706; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px; }
 
         label { font-size: 10px; font-weight: 700; color: #FCD34D; display: block; margin-bottom: 3px; }
         input, textarea { width: 100%; padding: 8px; background: #042E23; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; margin-bottom: 10px; color: #FFF; font-size: 11px; }
         .btn-submit { background: #D97706; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; }
     </style>
+
+    <!-- Adsterra: Popunder -->
+    <script data-cfasync="false" src="https://abscloud.org/1/cb16d104f220222479c0e959f7ad2dd1"></script>
 </head>
 <body>
 
-    <!-- LAYAR 1 -->
+    <!-- LAYAR 1 (WELCOME SCREEN) -->
     <div id="screen-welcome">
         <div class="welcome-logo-box">
             <svg viewBox="0 0 100 120"><path d="M50 5 C30 25 35 55 50 115 C65 55 70 25 50 5 Z"/></svg>
@@ -68,7 +73,7 @@
         <button class="btn-enter" onclick="masukAplikasi()">Masuk Aplikasi</button>
     </div>
 
-    <!-- LAYAR 2 -->
+    <!-- LAYAR 2 (MAIN SCREEN) -->
     <div id="screen-main">
         <div class="topbar">
             <div class="brand">
@@ -136,18 +141,33 @@
                 </div>
             </div>
         </main>
-    </div>
 
-    <!-- MODAL -->
-    <div id="modalBox" class="modal-overlay">
-        <div class="modal-box">
-            <h3 id="modalTitle">Judul</h3>
-            <p id="modalBody">Deskripsi...</p>
-            <button class="btn-close" onclick="tutupModal()">Tutup</button>
+        <!-- BANNER KECIL 320x50 (DI BAWAH) -->
+        <div style="text-align: center; padding: 12px 0; background: #03231B; border-top: 1px solid rgba(245,158,11,0.2); margin-top: auto;">
+            <script>
+              atOptions = {
+                'key' : 'db80ede8f4a6d32cfb5a68dfc06f648d',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+              };
+            </script>
+            <script src="https://bauval.org/22/db80ede8f4a6d32cfb5a68dfc06f648d"></script>
         </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- MODAL DETAIL (MUNCUL KETIKA JUDUL DIKLIK) -->
+    <div id="modalBox" class="modal-overlay">
+        <div class="modal-box">
+            <div id="modalImageContainer" style="margin-bottom: 10px;"></div>
+            <h3 id="modalTitle">Judul</h3>
+            <p id="modalBody">Deskripsi...</p>
+            <button class="btn-close" onclick="tutupModal()">Tutup / Kembali</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT -->
     <script>
         window.onload = function() {
             muatDataAdmin();
@@ -180,9 +200,17 @@
             if(btnTarget) btnTarget.className = 'nav-btn active';
         }
 
-        function bukaModal(judul, isi) {
+        function bukaModal(judul, isi, gambar) {
             document.getElementById('modalTitle').innerText = judul;
             document.getElementById('modalBody').innerText = isi;
+            
+            var imgContainer = document.getElementById('modalImageContainer');
+            if (gambar) {
+                imgContainer.innerHTML = `<img src="${gambar}" style="width:100%; max-height:200px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.2);">`;
+            } else {
+                imgContainer.innerHTML = '';
+            }
+
             document.getElementById('modalBox').style.display = 'flex';
         }
 
@@ -202,6 +230,13 @@
                 var cSatuan = document.getElementById('grid-satuan');
                 var cKegiatan = document.getElementById('grid-kegiatan');
                 var cMateri = document.getElementById('grid-materi');
+                
+                // Bersihkan kontainer sebelum dimuat ulang
+                if(cBeranda) cBeranda.innerHTML = '';
+                if(cSatuan) cSatuan.innerHTML = '';
+                if(cKegiatan) cKegiatan.innerHTML = '';
+                if(cMateri) cMateri.innerHTML = '';
+
                 var data = JSON.parse(localStorage.getItem('pramuka_custom_data')) || [];
                 
                 if(Array.isArray(data)) {
@@ -210,22 +245,30 @@
                         var c = document.createElement('div');
                         c.className = 'card';
                         
+                        // Mini preview gambar jika ada
+                        var imgThumb = item.gambar ? `<img src="${item.gambar}" style="width:100%; max-height:90px; object-fit:cover; border-radius:6px; margin-bottom:6px;">` : '';
+                        
+                        // Tampilan di halaman utama hanya Judul dan tombol/petunjuk baca
+                        c.innerHTML = `
+                            <div>
+                                ${imgThumb}
+                                <h3>📌 ${item.judul}</h3>
+                            </div>
+                            <div class="btn-baca">📖 Baca Selengkapnya &rarr;</div>
+                        `;
+
+                        // Ketika kartu diklik, buka modal detail penjelasan lengkap
+                        c.onclick = function() {
+                            bukaModal(item.judul, item.deskripsi, item.gambar);
+                        };
+                        
                         if(item.kategori === 'beranda' && cBeranda) {
-                            c.innerHTML = `<h3>${item.judul}</h3><p>${item.deskripsi || ''}</p>`;
                             cBeranda.appendChild(c);
                         } else if(item.kategori === 'satuan' && cSatuan) {
-                            c.innerHTML = `<span class="badge">Satuan</span><h3>${item.judul}</h3><p>${item.deskripsi || ''}</p>`;
                             cSatuan.appendChild(c);
                         } else if(item.kategori === 'kegiatan' && cKegiatan) {
-                            c.innerHTML = `<h3>${item.judul}</h3><p>${item.deskripsi || ''}</p>`;
                             cKegiatan.appendChild(c);
                         } else if(item.kategori === 'materi' && cMateri) {
-                            c.innerHTML = `<h3>${item.judul}</h3><p>${item.deskripsi || ''}</p>`;
-                            var b = document.createElement('button');
-                            b.className = 'btn-link';
-                            b.innerHTML = 'Pelajari &rarr;';
-                            b.onclick = function() { bukaModal(item.judul, item.deskripsi); };
-                            c.appendChild(b);
                             cMateri.appendChild(c);
                         }
                     });
@@ -235,5 +278,8 @@
             }
         }
     </script>
+
+    <!-- Adsterra: Social Bar -->
+    <script data-cfasync="false" src="https://bauval.org/14/c8e4ad4098e00f2f96bc02b38ea81297"></script>
 </body>
 </html>
